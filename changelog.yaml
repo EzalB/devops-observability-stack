@@ -4,9 +4,11 @@ databaseChangeLog:
       author: EzalB
       runWith: mongosh
       changes:
-        - mongo:
-            mongo: db.createCollection('person')
-            dbms: mongodb
-        - rollback:
-            mongo:
-              mongo: db.person.drop()
+        changes:
+          - createCollection:
+              collectionName: person
+              document: |
+                { "name": "Alice", "age": 30 }
+        rollback:
+          - dropCollection:
+              collectionName: person
