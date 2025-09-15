@@ -27,6 +27,7 @@ jobs:
 
       - name: Install MongoDB extension
         run: |
+          mkdir -p liquibase/lib
           curl -L https://github.com/liquibase/liquibase-mongodb/releases/download/v4.29.2/liquibase-mongodb-4.29.2.jar \
             -o liquibase/lib/liquibase-mongodb-4.29.2.jar
 
