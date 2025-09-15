@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  liquibase-migrate:
+  liquibase-status:
     runs-on: ubuntu-latest
 
     steps:
@@ -24,13 +24,14 @@ jobs:
           curl -L https://github.com/liquibase/liquibase/releases/download/v4.29.2/liquibase-4.29.2.tar.gz -o liquibase.tar.gz
           tar -xvzf liquibase.tar.gz
           echo "$PWD/liquibase" >> $GITHUB_PATH
-          liquibase --version
 
       - name: Install MongoDB extension
         run: |
           curl -L https://github.com/liquibase/liquibase-mongodb/releases/download/v4.29.2/liquibase-mongodb-4.29.2.jar \
             -o liquibase/lib/liquibase-mongodb-4.29.2.jar
 
+      - name: Liquibase version
+        run: liquibase --version
 
       - name: Run Liquibase status
         env:
