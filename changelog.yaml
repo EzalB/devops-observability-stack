@@ -1,0 +1,12 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: EzalB
+      runWith: mongosh
+      changes:
+        - mongo:
+            mongo: db.createCollection('person')
+            dbms: mongodb
+        - rollback:
+            mongo:
+              mongo: db.person.drop()

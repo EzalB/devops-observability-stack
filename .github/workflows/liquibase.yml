@@ -1,0 +1,40 @@
+name: Liquibase MongoDB Migration
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  liquibase-migrate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Install Liquibase
+        run: |
+          curl -L https://github.com/liquibase/liquibase/releases/download/v4.29.2/liquibase-4.29.2.tar.gz -o liquibase.tar.gz
+          tar -xvzf liquibase.tar.gz
+          sudo mv liquibase /usr/local/bin/liquibase
+          liquibase --version
+
+      - name: Run Liquibase status
+        env:
+          MONGO_USER: ${{ secrets.MONGO_USER }}
+          MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
+          MONGO_CLUSTER: ${{ secrets.MONGO_CLUSTER }}
+          MONGO_DB: ${{ secrets.MONGO_DB }}
+        run: |
+          liquibase \
+            --changeLogFile=changelog.sql \
+            --url="mongodb+srv://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_CLUSTER}/${MONGO_DB}" \
+            --classpath=/usr/local/bin/liquibase/lib/mongodb \
+            status
