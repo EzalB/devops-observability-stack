@@ -51,5 +51,5 @@ jobs:
         run: |
           liquibase \
             --changeLogFile=changelog.yaml \
-            --url="mongodb+srv://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_CLUSTER}/${MONGO_DB}" \
+            --url="mongodb+srv://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_CLUSTER}/${MONGO_DB}?retryWrites=true&w=majority&appName=liquibase" \
             status
