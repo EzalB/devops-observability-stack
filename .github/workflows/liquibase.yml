@@ -29,8 +29,15 @@ jobs:
       - name: Install MongoDB extension
         run: |
           mkdir -p liquibase-dist/lib
+          
           curl -L https://github.com/liquibase/liquibase-mongodb/releases/download/v4.29.2/liquibase-mongodb-4.29.2.jar \
             -o liquibase-dist/lib/liquibase-mongodb-4.29.2.jar
+          curl -L https://repo1.maven.org/maven2/org/mongodb/mongodb-driver-core/4.11.1/mongodb-driver-core-4.11.1.jar \
+            -o liquibase-dist/lib/mongodb-driver-core-4.11.1.jar
+          curl -L https://repo1.maven.org/maven2/org/mongodb/mongodb-driver-sync/4.11.1/mongodb-driver-sync-4.11.1.jar \
+            -o liquibase-dist/lib/mongodb-driver-sync-4.11.1.jar
+          curl -L https://repo1.maven.org/maven2/org/mongodb/bson/4.11.1/bson-4.11.1.jar \
+            -o liquibase-dist/lib/bson-4.11.1.jar
 
       - name: Liquibase version
         run: liquibase --version
