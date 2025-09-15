@@ -23,8 +23,15 @@ jobs:
         run: |
           curl -L https://github.com/liquibase/liquibase/releases/download/v4.29.2/liquibase-4.29.2.tar.gz -o liquibase.tar.gz
           tar -xvzf liquibase.tar.gz
-          sudo mv liquibase /usr/local/bin/liquibase
+          mv liquibase-4.29.2 liquibase
+          echo "$PWD/liquibase" >> $GITHUB_PATH
           liquibase --version
+
+      - name: Install MongoDB extension
+        run: |
+          curl -L https://github.com/liquibase/liquibase-mongodb/releases/download/v4.29.2/liquibase-mongodb-4.29.2.jar \
+            -o liquibase/lib/liquibase-mongodb-4.29.2.jar
+
 
       - name: Run Liquibase status
         env:
