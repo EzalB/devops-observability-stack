@@ -2,7 +2,6 @@ databaseChangeLog:
   - changeSet:
       id: 1
       author: EzalB
-      runWith: mongosh
       changes:
         changes:
           - createCollection:
