@@ -22,14 +22,15 @@ jobs:
       - name: Install Liquibase
         run: |
           curl -L https://github.com/liquibase/liquibase/releases/download/v4.29.2/liquibase-4.29.2.tar.gz -o liquibase.tar.gz
-          tar -xvzf liquibase.tar.gz
-          echo "$PWD/liquibase" >> $GITHUB_PATH
+          mkdir liquibase-dist
+          tar -xvzf liquibase.tar.gz -C liquibase-dist
+          echo "$PWD/liquibase-dist" >> $GITHUB_PATH
 
       - name: Install MongoDB extension
         run: |
-          mkdir -p liquibase/lib
+          mkdir -p liquibase-dist/lib
           curl -L https://github.com/liquibase/liquibase-mongodb/releases/download/v4.29.2/liquibase-mongodb-4.29.2.jar \
-            -o liquibase/lib/liquibase-mongodb-4.29.2.jar
+            -o liquibase-dist/lib/liquibase-mongodb-4.29.2.jar
 
       - name: Liquibase version
         run: liquibase --version
