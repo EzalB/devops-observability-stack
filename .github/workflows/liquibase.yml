@@ -23,7 +23,6 @@ jobs:
         run: |
           curl -L https://github.com/liquibase/liquibase/releases/download/v4.29.2/liquibase-4.29.2.tar.gz -o liquibase.tar.gz
           tar -xvzf liquibase.tar.gz
-          mv liquibase-4.29.2 liquibase
           echo "$PWD/liquibase" >> $GITHUB_PATH
           liquibase --version
 
